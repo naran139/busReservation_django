@@ -1,0 +1,80 @@
+{% extends "base.html" %} {% block content %}
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="">Bus Reservation</a>
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarSupportedContent"
+      aria-controls="navbarSupportedContent"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Contact</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Book Ticket</a>
+        </li>
+        {% if not request.user.is_authenticated %}
+        <li class="nav-item">
+          <a
+            href="/login/"
+            class="nav-link enabled"
+            tabindex="-1"
+            aria-disabled="true"
+            >Login</a
+          >
+        </li>
+        <li class="nav-item">
+          <a
+            href="/register/"
+            class="nav-link enabled"
+            tabindex="-1"
+            aria-disabled="true"
+            >Sign Up</a
+          >
+        </li>
+        {% else %}
+        <li class="nav-item">
+          <a
+            href="/logout/"
+            class="nav-link enabled"
+            tabindex="-1"
+            aria-disabled="true"
+            >Logout</a
+          >
+        </li>
+        {% endif%}
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="card card-css mt-3">
+  <img class="card-img-top img-css" src="..." alt="Card image cap" />
+  <div class="card-body">
+    <div class="row">
+      <div class="col">
+        <h5 class="card-title">Card title</h5>
+      </div>
+      <div class="col">
+        <p>Price: Rs 6000</p>
+      </div>
+    </div>
+    <p class="card-text">
+      Some quick example text to build on the card's content.
+    </p>
+  </div>
+</div>
+
+{% endblock content %}

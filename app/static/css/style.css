@@ -1,0 +1,16 @@
+body {
+    padding: 1em;
+    }
+  .card-css{
+    max-width: 30em;
+    flex-direction: row;
+    }
+  
+  .img-css{
+    max-width: 22%;
+    margin: auto;
+    padding: 0.5em;
+    border-radius: 50%;
+  }
+    
+  
