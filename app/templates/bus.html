@@ -59,21 +59,101 @@
     </div>
   </div>
 </nav>
-
+{% for bus in buses %}
 <div class="card card-css mt-3">
   <img class="card-img-top img-css" src="..." alt="Card image cap" />
   <div class="card-body">
     <div class="row">
       <div class="col">
-        <h5 class="card-title">Card title</h5>
+        <h5 class="card-title">{{bus.bus_number}}</h5>
       </div>
       <div class="col">
-        <p>Price: Rs 6000</p>
+        <p>Price: Rs {{ bus.price}}</p>
       </div>
     </div>
-    <p class="card-text">
-      Some quick example text to build on the card's content.
-    </p>
+    <span class="card-text">
+      <p>Departure Time:<span> {{ bus.departure_time}}</span></p>
+      <p>Arrival Location:<span> {{ bus.departure_location}}</span></p>
+    </span>
+
+    <button
+      type="button"
+      class="btn btn-primary"
+      data-bs-toggle="modal"
+      data-bs-target="#exampleModal"
+    >
+      Book
+    </button>
+  </div>
+</div>
+{% endfor %}
+
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+<div
+  class="modal fade"
+  id="exampleModal"
+  tabindex="-1"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Ticket Booking</h1>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" action ={{}}>
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="exampleInputEmail1">Name</label>
+            <input
+              name="username"
+              type="text"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="Enter Username"
+            />
+          </div>
+          <br />
+          <div class="form-group">
+            <label for="exampleInputPassword1">Number of Tickets</label>
+            <input
+              name="noOfTickets"
+              type="text"
+              class="form-control"
+              id="exampleInputPassword1"
+              placeholder="Tickets"
+            />
+          </div>
+          <br />
+          <div class="form-group">
+            <label for="exampleInputPassword1">Price</label>
+            <input
+              name="price"
+              type="text"
+              class="form-control"
+              id="exampleInputPassword1"
+              placeholder="Price"
+            />
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+          Close
+        </button>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
   </div>
 </div>
 

@@ -1,14 +1,31 @@
+import datetime
 from django.shortcuts import render,redirect
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth import authenticate,login,logout
+from .models import Bus,Location,Schedule
+from django.db.models import Q
+# from django.contrib.auth.decorators import login_required
 
 
 
 # Create your views here.
-
+context={}
 
 def index(request):
+
+    if request.method == 'POST':
+        date = datetime.strptime(request.POST['date'],"%y-%m-%d").date()
+        year = date.strftime('%Y')
+        month = date.strftime('%m')
+        day = date.strftime('%d')
+        depart = Location.objects.get(id = request.POST['depart'])
+        destination = Location.objects.get(id = request.POST['destination'])
+        schedules = Schedule.objects.filter(Q(status=1) & Q(schedule__year = year)& Q(schedule__month = month) & Q(schedule__day = day) & Q(depart= depart )& Q(destination= destination)).all()
+        context['schedules']=schedules
+        context['data']={'date':date,'depart':depart,'destination':destination}
+        return render(request,'bus.html',context)
+
     return render(request,'index.html')
 
 
@@ -71,4 +88,10 @@ def logout_page(request):
 
 
 def bus(request):
-    return render(request,'bus.html')
+    buses =Bus.objects.all()
+    return render(request,'bus.html',{'buses':buses})
+
+
+# @login_required(login_url="/login/")
+def book(request):
+    return render(request,'book.html')
