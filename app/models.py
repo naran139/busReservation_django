@@ -3,6 +3,12 @@ from django.contrib.auth.models import User
 from django.core.validators import MaxValueValidator
 from more_itertools import quantify
 from django.db.models import Sum
+import random
+
+
+
+class Customer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE ,null =True,blank=True)
 
 class Category(models.Model):
     name = models.CharField(max_length=250)
@@ -55,7 +61,8 @@ class Schedule(models.Model):
         return self.bus.seats - booked
     
 class Booking(models.Model):
-    code = models.IntegerField(primary_key = True)
+    code = models.CharField(max_length=255,primary_key = True, default=random.randint(10000, 99999))
+    customer = models.ForeignKey(Customer,on_delete=models.CASCADE,null =True,blank=True)
     name = models.CharField(max_length=250)
     schedule = models.ForeignKey(Schedule,on_delete=models.CASCADE)
     seats = models.IntegerField()

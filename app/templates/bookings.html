@@ -1,4 +1,30 @@
 {% extends "base.html" %} {% block content %}
+<style>
+  body {
+    height: 100vh;
+    margin: 0;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .container {
+    margin-top: 50px;
+    display: flex;
+    width: 400px;
+    flex-direction: column;
+    align-items: center;
+    border: 2px solid #ddd;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  .container form {
+    width: 100%;
+  }
+
+  .container form input {
+    width: 100%;
+  }
+</style>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
   <div class="container-fluid">
@@ -59,39 +85,12 @@
     </div>
   </div>
 </nav>
-{% for schedule in schedules %}
-<div class="card card-css mt-3">
-  <img class="card-img-top img-css" src="..." alt="Card image cap" />
-  <div class="card-body">
-    <div class="row">
-      <div class="col">
-        <h5 class="card-title">{{schedule.bus.bus_number}}</h5>
-      </div>
-      <div class="col">
-        <p>Price: Rs {{ schedule.fare}}</p>
-      </div>
-    </div>
-    <span class="card-text">
-      <p>
-        Departure Time:<span> {{ schedule.schedule|date:"Y-m-d h:i A" }}</span>
-      </p>
-      <p>Arrival Location:<span> {{schedule.depart}}</span></p>
-    </span>
 
-    <a
-      type="button"
-      class="btn btn-primary"
-      href= "{% url 'bookings' schedule.pk %}"
-    
-    >
-      Book
-  </a>
-  </div>
-</div>
-{% endfor %}
-
-
-
+<div class="container">
+  <form method="post" action="{% url 'save_book' schedule.pk %}">
+    {% csrf_token %} {{form}}
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
 </div>
 
 {% endblock content %}

@@ -79,7 +79,7 @@
       </div>
       <div class="card-body">
         <div class="container-fluid">
-          <form id="login-user" method="POST">
+          <form id="login-user" method="POST" action="{% url 'bus' %}">
             {% csrf_token %}
             <div class="mdc-layout-grid">
               <div class="mdc-layout-grid__inner">
@@ -103,9 +103,9 @@
                     class="form-select select2 rounded-0"
                   >
                     <option selected></option>
-                    {% comment %} {% for location in locations %}
+                    {% for location in locations %}
                     <option value="{{ location.id }}">{{ location }}</option>
-                    {% endfor %} {% endcomment %}
+                    {% endfor %}
                   </select>
                 </div>
                 <div class="form-group mb-3">
@@ -118,9 +118,9 @@
                     class="form-select select2 rounded-0"
                   >
                     <option selected></option>
-                    {% comment %} {% for location in locations %}
+                    {% for location in locations %}
                     <option value="{{ location.id }}">{{ location }}</option>
-                    {% endfor %} {% endcomment %}
+                    {% endfor %}
                   </select>
                 </div>
                 <div class="form-group mb-3">
